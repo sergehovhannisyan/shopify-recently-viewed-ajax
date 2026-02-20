@@ -1,0 +1,44 @@
+{% layout none %}
+
+{%- comment -%}
+  Capture the URL parameter (square, portrait, or adapt)
+{%- endcomment -%}
+{%- assign query_aspect = "" -%}
+{%- capture contentForQuery -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign page_url = contentForQuery | split:'"pageurl":"' | last | split:'"' | first -%}
+
+{%- if page_url contains "aspect_ratio=" -%}
+  {%- assign query_aspect = page_url | split: "aspect_ratio=" | last | split: "&" | first -%}
+{%- endif -%}
+
+{%- comment -%} If not found in the URL, fall back to the section setting {%- endcomment -%}
+{%- assign final_ratio = query_aspect | default: section.settings.image_aspect_ratio -%}
+
+{%- if product != blank -%}
+  {% render 'card-product',
+    card_product: product,
+    media_aspect_ratio: final_ratio,
+    show_secondary_image: false,
+    lazy_load: true,
+    section_id: section.id
+  %}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "API Product Card",
+  "settings": [
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Default Aspect Ratio",
+      "default": "square",
+      "options": [
+        { "value": "square", "label": "Square" },
+        { "value": "portrait", "label": "Portrait" },
+        { "value": "adapt", "label": "Adapt to image" }
+      ]
+    }
+  ]
+}
+{% endschema %}

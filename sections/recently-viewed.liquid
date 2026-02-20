@@ -1,0 +1,59 @@
+{{ 'recently-viewed.css' | asset_url | stylesheet_tag }}
+
+<div class="recently-viewed-wrapper page-width" 
+     id="recently-viewed-{{ section.id }}" 
+     data-aspect-ratio="{{ section.settings.image_aspect_ratio }}"
+     style="display: block; opacity: 0;">
+  
+  <h2 class="title inline-richtext {{ section.settings.heading_size }}">
+    {{ section.settings.title | default: 'Recently Viewed' }}
+  </h2>
+
+  <ul id="recently-viewed-grid" class="grid product-grid grid--4-col-desktop grid--2-col-tablet-down">
+    {%- for i in (1..4) -%}
+      <li class="grid__item">
+        <div class="rv-skeleton-card">
+          {%- liquid
+            assign skeleton_ratio = '100%'
+            if section.settings.image_aspect_ratio == 'portrait'
+              assign skeleton_ratio = '125%'
+            endif
+          -%}
+          <div class="rv-skeleton-image" style="--aspect-ratio: {{ skeleton_ratio }};"> </div>
+          <div style="padding: 1rem 0;">
+            <div style="height: 15px; background: #eee; width: 80%; margin-bottom: 10px;"></div>
+            <div style="height: 10px; background: #eee; width: 40%;"></div>
+          </div>
+        </div>
+      </li>
+    {%- endfor -%}
+  </ul>
+</div>
+
+<script src="{{ 'recently-viewed.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Recently Viewed",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "Recently Viewed",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "image_aspect_ratio",
+      "label": "Image Aspect Ratio",
+      "default": "square",
+      "options": [
+        { "value": "square", "label": "Square (1:1)" },
+        { "value": "portrait", "label": "Portrait (4:5)" },
+        { "value": "adapt", "label": "Adapt to image" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Recently Viewed" }]
+}
+{% endschema %}

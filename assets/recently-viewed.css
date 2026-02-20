@@ -1,0 +1,43 @@
+
+.recently-viewed-wrapper {
+	min-height: 400px;
+	transition: opacity 0.4s ease;
+}
+  
+#recently-viewed-grid {
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+  
+.rv-skeleton-card {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.rv-skeleton-image {
+	width: 100%;
+	position: relative;
+	padding-top: var(--aspect-ratio, 100%); 
+	background: #eee;
+	background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+	background-size: 200% 100%;
+	animation: shimmer 1.5s linear infinite;
+	border-radius: var(--card-corner-radius);
+}
+  
+@keyframes shimmer {
+	to { background-position-x: -200%; }
+}
+
+.recently-viewed-item {
+	opacity: 0;
+	transition: opacity 0.5s ease-in-out;
+}
+
+.is-loaded .recently-viewed-item {
+	opacity: 1;
+}

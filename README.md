@@ -1,46 +1,53 @@
-# shopify-recently-viewed-ajax
-High-performance 'Recently Viewed' products section for Shopify Dawn theme with AJAX fetching, LocalStorage, and Zero Layout Shift (CLS) optimization.
+# High-Performance "Recently Viewed" Section for Shopify
 
-This project provides a professional-grade 'Recently Viewed' section for Shopify stores. Unlike standard implementations, this version uses the Shopify Section Rendering API to fetch product data asynchronously, ensuring it doesn't slow down the initial page load. It specifically addresses Cumulative Layout Shift (CLS) by using CSS-based skeleton screens that precisely match the product card dimensions."
+A modern, fast, and UX-optimized "Recently Viewed" products section built for Shopify themes (optimized for Dawn). This solution uses the **Shopify Section Rendering API** and **LocalStorage** to provide a seamless experience with **Zero Layout Shift (CLS)**.
 
-🛠 How to Use
-Follow these steps to integrate this section into your Shopify theme:
+## ✨ Features
 
-Step 1: Create the API Endpoint
-Go to your Shopify Admin -> Online Store -> Themes -> Edit Code.
+- **🚀 Performance:** Fetches product data asynchronously using AJAX, ensuring zero impact on the initial page load speed.
+- **🖼️ Zero Layout Shift:** Implements dynamic **Skeleton Loaders** that match the chosen image aspect ratio, preventing page jumping.
+- **🛠️ Fully Customizable:** Merchants can choose between **Square**, **Portrait**, or **Adapt** aspect ratios directly from the Shopify Theme Editor.
+- **📱 Responsive:** Built to work perfectly with Shopify’s standard grid system (Dawn theme compatible).
+- **💾 Efficient Tracking:** Uses `localStorage` to track user history locally without slowing down the server.
 
-Under the Sections folder, click Add a new section.
+---
 
-Name it api-product-card.liquid.
+## 🛠 Installation & Usage
 
-Paste the code from sections/api-product-card.liquid into this file and save.
+### 1. Create the API Endpoint
+1. Go to **Online Store > Themes > Edit Code**.
+2. Under the **Sections** folder, click **Add a new section**.
+3. Name it `api-product-card.liquid`.
+4. Paste the code from `sections/api-product-card.liquid` and save.
 
-Step 2: Create the Main Section
-Under the Sections folder, click Add a new section.
+### 2. Create the Main Section
+1. Under the **Sections** folder, click **Add a new section**.
+2. Name it `recently-viewed.liquid`.
+3. Paste the code from `sections/recently-viewed.liquid` and save.
 
-Name it recently-viewed.liquid.
+### 3. Add Assets
+1. Under the **Assets** folder, upload or create `recently-viewed.js`.
+2. Under the **Assets** folder, upload or create `recently-viewed.css`.
 
-Paste the code from sections/recently-viewed.liquid and save.
+### 4. Integration Check
+Open `sections/api-product-card.liquid` and ensure the `render` tag matches your theme's product card snippet (default is `card-product` for Dawn).
 
-Step 3: Add Assets
-Under the Assets folder, click Add a new asset.
+### 5. Add to Theme
+1. Open the **Theme Customizer**.
+2. Navigate to a **Product Page**.
+3. Click **Add Section** and select **Recently Viewed**.
+4. Adjust the settings (Heading, Aspect Ratio) in the sidebar.
 
-Create recently-viewed.js and paste the JS code.
+---
 
-Create recently-viewed.css and paste the CSS code.
+## 📂 Repository Structure
 
-Step 4: Configure the Product Card (Important)
-Open sections/api-product-card.liquid and ensure the render tag matches your theme's product card snippet name.
 
-Example for Dawn theme: {% render 'card-product', ... %}.
 
-Example for other themes: {% render 'product-card', ... %} or {% render 'product-grid-item', ... %}.
-
-Step 5: Add to Theme Editor
-Open the Theme Customizer.
-
-Navigate to any Product page.
-
-Click Add section in the sidebar and select Recently Viewed.
-
-Choose your preferred Image Aspect Ratio (Square or Portrait) to match your store's design.
+```text
+├── assets/
+│   ├── recently-viewed.css    # Shimmer animations & skeleton styles
+│   └── recently-viewed.js     # AJAX logic & LocalStorage handling
+└── sections/
+    ├── recently-viewed.liquid # Main section UI & Skeleton structure
+    └── api-product-card.liquid # AJAX fragment endpoint
